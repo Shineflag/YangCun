@@ -1,0 +1,13 @@
+{
+  "splash-setting": {
+    "clearColor": {
+      "x": 0.9647058823529412,
+      "y": 0.9882352941176471,
+      "z": 0.803921568627451,
+      "w": 1
+    },
+    "url": "D:\\game_project\\cc\\YangCun\\assets\\resources\\name.png",
+    "totalTime": 1000,
+    "displayWatermark": false
+  }
+}
