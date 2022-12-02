@@ -1,4 +1,5 @@
 import { _decorator, Component, Game,  } from 'cc';
+import { KViewName, ViewName } from '../libs/constants';
 import { GameView } from './GameView';
 import { HomeView } from './HomeView';
 import { LevelView } from './LevelView';
@@ -30,7 +31,7 @@ export class ViewMgr extends Component {
 
 
 
-    showView(name: string) {
+    showView(name: KViewName) {
         for( let key in this.views) {
             if(key ==  name) {
                 this.views[key].show()
@@ -46,13 +47,13 @@ export class ViewMgr extends Component {
 
     initViews() {
         this.homeView = this.getComponentInChildren(HomeView)
-        this.views["HomeView"] = this.homeView
+        this.views[ViewName.HomeView] = this.homeView
 
         this.levelView = this.getComponentInChildren(LevelView)
-        this.views["LevelView"] = this.levelView
+        this.views[ViewName.LevelView] = this.levelView
 
         this.gameView = this.getComponentInChildren(GameView)
-        this.views["GameView"] = this.gameView
+        this.views[ViewName.GameView] = this.gameView
     }
 }
 

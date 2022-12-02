@@ -1,5 +1,5 @@
 import { _decorator, Component, Node, math, instantiate } from "cc";
-import { TileAnimTime, TileConfig } from "../libs/constants";
+import { ItemType, TileAnimTime, TileConfig } from "../libs/constants";
 import { EVT, TILE_EVT } from "../libs/event";
 import { Tile } from "../libs/Tile";
 import { AreaConfig } from "../libs/yang";
@@ -24,6 +24,10 @@ export class TileGame extends Component {
     total: number = 0; //总tile个数
     leftCount: number = 0; //剩余个数
 
+    itemUse: Record<string, number> = {}
+
+    area: Node
+
     onLoad() {
         console.log("onLoad", this.name);
 
@@ -36,6 +40,7 @@ export class TileGame extends Component {
         this.listStartX = listNode.position.x;
         this.listStartY = listNode.position.y;
 
+        this.area = this.node.getChildByName("area")
         console.log("list start ",this.listStartX, this.listStartY)
     }
 
@@ -57,6 +62,28 @@ export class TileGame extends Component {
 
     gameReset() {
         this.listMaxLen = NormalListMaxLen
+
+        //清理tiles
+        this.layerTiles.forEach( layer => {
+            if(layer.size > 0){
+                layer.forEach( tile => {
+                    tile.delete()
+                })
+                layer.clear()
+            }
+        })
+        this.layerTiles = []
+
+
+        this.listTiles.forEach( tile => {
+            tile.delete()
+        })
+        this.listTiles = []
+
+        //道具使用情况
+        for(let k in ItemType){
+            this.itemUse[k] = 0
+        }
     }
 
     startGame(config: AreaConfig) {
@@ -132,7 +159,7 @@ export class TileGame extends Component {
     }
 
     addAreaTile(tile: Tile, x:number, y: number, z:number) {
-        tile.node.setParent(this.node)
+        tile.node.setParent(this.area)
         tile.setAreaIndex(x,y, z)
         tile.setPosition( this.getAreaPosX(x), this.getAreaPosY(y))
 
@@ -273,11 +300,13 @@ export class TileGame extends Component {
     }
 
     gameFailed() {
-
+        console.log("gameFailed")
+        EVT.emit(TILE_EVT.FAIL)
     }
 
     gamePass() {
-
+        console.log("gamePass")
+        EVT.emit(TILE_EVT.PASS)
     }
 
 }

@@ -29,7 +29,7 @@ export class HomeView extends Component {
     onStartBtnClick() {
         ViewMgr.ins.showView("GameView")
 
-        ViewMgr.ins.gameView.startLevel(2)
+        ViewMgr.ins.gameView.startLevel(1)
     }
 }
 
