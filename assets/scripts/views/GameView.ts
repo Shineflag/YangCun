@@ -12,11 +12,14 @@ export class GameView extends Component {
 
     lv: number //当前关卡
 
+    addSlotBtnNode: Node
+
     tileGame: TileGame
 
     onLoad() {
         console.log("onLoad", this.name) 
         this.tileGame = this.getComponentInChildren(TileGame)
+        this.addSlotBtnNode = this.node.getChildByPath("footer/BtnAddSlot")
     }
 
     onEnable() {
@@ -54,6 +57,8 @@ export class GameView extends Component {
         let config = this.getLevelConfig(lv)
         console.log("startLevel ", lv, config)
 
+        this.addSlotBtnNode.active = true
+
         this.tileGame.startGame(config)
     }
 
@@ -80,19 +85,24 @@ export class GameView extends Component {
 
     onClickRemove() {
         console.log("onClickRemove")
+        this.tileGame.useRemove()
 
     }
 
     onClickUndo() {
         console.log("onClickRemove")
+        this.tileGame.useUndo()
     }
 
     onClickShuffle() {
         console.log("onClickRemove")
+        this.tileGame.useShuffle()
     }
 
-    onClickAddShuffle() {
-        console.log("onClickRemove")
+    onClickAddSlot() {
+        console.log("onClickAddSlot")
+        this.tileGame.useAddSlot()
+        this.addSlotBtnNode.active = false
     }
 
 

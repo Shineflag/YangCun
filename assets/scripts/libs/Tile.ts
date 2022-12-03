@@ -24,6 +24,7 @@ export class Tile extends Component {
     bigScale: number = 1.2 //变大后的缩放
 
     zone:TILE_ZONE = TILE_ZONE.NONE //是否在 消除列表框
+    fromZone: TILE_ZONE = TILE_ZONE.NONE
 
     topTiles: Set<Tile> = new Set()
     bottomTiels: Set<Tile> = new Set()
@@ -86,6 +87,7 @@ export class Tile extends Component {
     }
 
     setAreaIndex(x:number, y: number, z: number) {
+        this.fromZone = this.zone
         this.zone = TILE_ZONE.AREA
 
         this.x = x
@@ -93,6 +95,18 @@ export class Tile extends Component {
         this.z = z 
 
         this.priority = z * 1000 - y 
+        this.getComponent(UITransform).priority = this.priority
+    }
+
+    setStackIndex(x: number, z: number){
+        this.fromZone = this.zone
+        this.zone = TILE_ZONE.STACK
+
+        this.x = x 
+        this.y = -1 //只有行
+        this.z = z 
+
+        this.priority = z * 100 * 1000
         this.getComponent(UITransform).priority = this.priority
     }
 
@@ -155,26 +169,29 @@ export class Tile extends Component {
     }
 
     toListZone() {
+        this.fromZone = this.zone
         this.zone = TILE_ZONE.LIST
         this.topTiles.clear()
         this.bottomTiels.clear()
+
+        this.priority = 10000 * 1000 //层级大一点，动画的时候再最上层
     }
 
-        //消除
-        erase() {
-            tween(this.node.scale).to(TileAnimTime.MOVE, new Vec3(0,0,0), {
-                onUpdate: (target: Vec3, ratio: number) =>{
-                    this.node.scale = target
-                },
-                onComplete: (target ) => {
-                    this.delete()
-                }
-            }).start()
-        }
-    
-        delete() {
-            this.node.removeFromParent()
-        }
+    //消除
+    erase() {
+        tween(this.node.scale).to(TileAnimTime.MOVE, new Vec3(0,0,0), {
+            onUpdate: (target: Vec3, ratio: number) =>{
+                this.node.scale = target
+            },
+            onComplete: (target ) => {
+                this.delete()
+            }
+        }).start()
+    }
+
+    delete() {
+        this.node.removeFromParent()
+    }
     
 }
 

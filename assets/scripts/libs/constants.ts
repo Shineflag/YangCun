@@ -10,6 +10,7 @@ export const enum TILE_ZONE  {
 export const enum TileConfig {
     GRID_PX = 40,     //一个格子像素
     TILE_GRID = 2,    //一个方块的边长是几格
+    STACK_TILE = 8,    //堆每层最多放几个
 }
 
 export const enum TileAnimTime {
