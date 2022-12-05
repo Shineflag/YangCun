@@ -22,6 +22,12 @@ export const  enum DATE {
     MIN = 60
 }
 
+export enum LvStatus {
+    Lock = 0,  //未解锁
+    Unlock,    //解锁
+    Pass,      //已过关
+} 
+
 //游戏的一些数值配置
 export const enum DataConfig {
     MAX_POWER = 50,
@@ -56,3 +62,4 @@ export enum ItemGold {
     ADDSLOT = 30, //加槽
     RELIVE  = 30,  //复活
 }
+

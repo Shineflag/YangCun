@@ -1,4 +1,4 @@
-import { IPlayerInfo } from "./yang"
+import { ILvPlayInfo, IPlayerInfo } from "./yang"
 
 
 function encode(val: any):string {
@@ -34,6 +34,7 @@ export class StoreMgr {
         return StoreMgr._ins
     }
 
+    //玩家信息
     savePlayerInfo(info: IPlayerInfo) {        
         LocalStorage.set("PLAYER", encode(info))
     }
@@ -43,5 +44,20 @@ export class StoreMgr {
             return decode(val)
         }
         return null
+    }
+
+
+
+    //闯关信息
+    getLvPlayInfo(lv: number): ILvPlayInfo {
+        let v = LocalStorage.get(`LV_PLAY_INFO_${lv}`)
+        if(v != ""){
+            return decode(v)
+        }
+        return null 
+    }
+
+    saveLvPlayInfo( info: ILvPlayInfo) {
+        LocalStorage.set(`LV_PLAY_INFO_${info.id}`, encode(info))
     }
 }

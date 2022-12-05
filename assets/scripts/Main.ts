@@ -17,6 +17,9 @@ export class Main extends Component {
     @property([SpriteFrame])
     tileSpriteFrames: SpriteFrame[]
 
+    @property([SpriteFrame])
+    lvStatusSprame: SpriteFrame[]
+
 
     onLoad() {
         console.log("env:", DEBUG, NET_MODE )

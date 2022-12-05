@@ -1,7 +1,9 @@
 import { DataEvt, EVT } from "./event"
 import { StoreMgr } from "./StoreMgr"
-import { IPlayerInfo } from "./yang"
+import { ILvPlayInfo, IlvPropInfo, IPlayerInfo } from "./yang"
 
+
+const LV_COUNT = 50
 
 export class DataMgr {
     private static _ins: DataMgr
@@ -22,7 +24,7 @@ export class DataMgr {
                 power: 50,  //体力
                 gold: 30,   //金币
                 lastAddPowerTime: 0, //最后加体力的世界搓
-                lastLockLevel: 1, //最后解锁的关卡
+                lastUnLockLevel: 1, //最后解锁的关卡
             }
 
             StoreMgr.ins.savePlayerInfo(this._playerInfo)
@@ -31,6 +33,7 @@ export class DataMgr {
     }
 
     private _playerInfo: IPlayerInfo
+    private _lvPlayInfo: Map<number, ILvPlayInfo> = new Map<number, ILvPlayInfo>()
 
 
     get gold(): number {
@@ -85,4 +88,46 @@ export class DataMgr {
         this._playerInfo.lastAddPowerTime = val
         StoreMgr.ins.savePlayerInfo(this._playerInfo)
     }
+
+    get lastUnlockLevel() {
+        return this._playerInfo.lastUnLockLevel
+    }
+
+    set lastUnlockLevel(v: number) {
+        this._playerInfo.lastUnLockLevel = v 
+        StoreMgr.ins.savePlayerInfo(this._playerInfo)
+    }
+
+    //总关卡数
+    get lvCount(): number {
+        return LV_COUNT
+    }
+
+    levelPlayInfo(lv: number): ILvPlayInfo{
+        if(!this._lvPlayInfo.has(lv)){
+            let info = StoreMgr.ins.getLvPlayInfo(lv)
+            if(info == null) {
+                info = {
+                    id: lv,  //关卡id
+                    firstPlay: 0, //第一次玩的时间戳
+                    lastPlay: 0,  //最后一次玩的时间
+                    playTimes: 0, //玩了几次
+                    passTimes: 0, //过关几次
+                    bestTime:0,   //最佳过关时间(秒)
+                    star: 0,      //最佳成绩几颗星 
+                }
+                StoreMgr.ins.saveLvPlayInfo( info)
+            }
+            this._lvPlayInfo.set(lv, info)
+        }
+        return this._lvPlayInfo.get(lv)
+    }
+
+    changeLvPlayInfo(info: ILvPlayInfo) {
+        this._lvPlayInfo.set(info.id, info)
+        StoreMgr.ins.saveLvPlayInfo( info)
+    }
+
+
+
 }

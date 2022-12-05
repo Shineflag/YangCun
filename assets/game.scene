@@ -158,6 +158,20 @@
         "__expectedType__": "cc.SpriteFrame"
       }
     ],
+    "lvStatusSprame": [
+      {
+        "__uuid__": "3c5d0d37-2944-4aa6-ae7c-1850b65560e3@f9941",
+        "__expectedType__": "cc.SpriteFrame"
+      },
+      {
+        "__uuid__": "c31aa84e-e346-4097-bc5c-c4a200334bfe@f9941",
+        "__expectedType__": "cc.SpriteFrame"
+      },
+      {
+        "__uuid__": "aa02b9b8-02ad-40eb-bad7-196d5eb88562@f9941",
+        "__expectedType__": "cc.SpriteFrame"
+      }
+    ],
     "_id": "e06ucAoABCkadyGPc6cyV0"
   },
   {
@@ -1700,6 +1714,9 @@
     },
     "_enabled": true,
     "__prefab": null,
+    "listNode": {
+      "__id__": 34
+    },
     "_id": "94Qr9OhDVPa696TSsL7LpZ"
   },
   {
