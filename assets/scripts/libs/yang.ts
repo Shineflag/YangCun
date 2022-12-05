@@ -20,6 +20,14 @@ export interface IlvPropInfo {
     add: number,     //加槽
 }
 
+//玩家信息
+export interface IPlayerInfo {
+    power: number  //体力
+    gold: number   //金币
+    lastAddPowerTime: number //最后加体力的世界搓
+    lastLockLevel: number //最后解锁的关卡
+}
+
 //某一层的tile坐标
 export interface LayerConfig {
     x:number[],

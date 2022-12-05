@@ -12,5 +12,10 @@ export enum DialogEvt {
     CLOSE = "CLOSE"
 }
 
+export enum DataEvt {
+    CHANGE_GOLD = "DataEvt.CHANGE_GOLD",
+    CHANGE_POWER = "DataEvt.CHANGE_POWER"
+}
+
 
 

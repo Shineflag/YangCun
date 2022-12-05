@@ -17,6 +17,17 @@ export const enum TileAnimTime {
     MOVE = 0.25
 }
 
+export const  enum DATE {
+    SECOND = 1000,
+    MIN = 60
+}
+
+//游戏的一些数值配置
+export const enum DataConfig {
+    MAX_POWER = 50,
+    ADD_POWER_TIME = 120
+}
+
 export enum ViewName {
     HomeView = "HomeView",
     LevelView = "LevelView",
