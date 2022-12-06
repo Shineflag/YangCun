@@ -1,6 +1,7 @@
 import { _decorator, Component, Node, Label, macro, tween, Vec3, Tween } from 'cc';
+import { AudioManager } from '../AudioManager';
 import { DialogMgr } from '../dialogs/DialogMgr';
-import { DataConfig, DATE, PropsType } from '../libs/constants';
+import { AClip, DataConfig, DATE, PropsType } from '../libs/constants';
 import { DataMgr } from '../libs/DataMgr';
 import { DataEvt, EVT } from '../libs/event';
 import { Utils } from '../libs/untils';
@@ -49,13 +50,8 @@ export class TipsMgr extends Component {
         this.onPowerChange(DataMgr.ins.power)
     }
 
-    update(dt: number) {
-
-
-    }
-
-
     onClickAddPower() {
+        AudioManager.ins.play(AClip.CLICK)
         this.needPower()
     }
 
@@ -66,6 +62,7 @@ export class TipsMgr extends Component {
     }
 
     onClickAddGold() {
+        AudioManager.ins.play(AClip.CLICK)
         this.needGold()
     }
 

@@ -1,5 +1,6 @@
 import { _decorator, Component, Node, Sprite, Label } from 'cc';
-import { PropsType } from '../libs/constants';
+import { AudioManager } from '../AudioManager';
+import { AClip, PropsType } from '../libs/constants';
 import { DialogEvt, EVT } from '../libs/event';
 import { Main } from '../Main';
 import { TipsMgr } from '../tips/TipsMgr';
@@ -56,6 +57,7 @@ export class GamePropsDialog extends Component {
 
     onClickOK() {
         console.log(this.name,"onClickOK")
+        AudioManager.ins.play(AClip.CLICK)
         this.close()
 
         switch(this.propsType){
@@ -72,6 +74,7 @@ export class GamePropsDialog extends Component {
 
     onClickBack() {
         console.log(this.name,"onClickBack")
+        AudioManager.ins.play(AClip.CLICK)
         this.close()
 
         if(this.propsType == PropsType.POWER){
@@ -81,6 +84,7 @@ export class GamePropsDialog extends Component {
 
     onClickClose() {
         console.log(this.name,"onClickClose")
+        AudioManager.ins.play(AClip.CLICK)
         this.close()
         if(this.propsType == PropsType.POWER){
             EVT.emit(DialogEvt.POWER_CANCEL)

@@ -1,5 +1,6 @@
 import { _decorator, Component, Node, Label, Sprite } from 'cc';
-import { LvStatus } from '../libs/constants';
+import { AudioManager } from '../AudioManager';
+import { AClip, LvStatus } from '../libs/constants';
 import { Main } from '../Main';
 import { TipsMgr } from '../tips/TipsMgr';
 import { ViewMgr } from './ViewMgr';
@@ -49,6 +50,7 @@ export class LevelItem extends Component {
     }
 
     onClick() {
+        AudioManager.ins.play(AClip.CLICK)
         if(this.lockRoot.active){
             console.log("未解锁")
             TipsMgr.ins.showMessage("未解锁,通过前一关将自动解锁")

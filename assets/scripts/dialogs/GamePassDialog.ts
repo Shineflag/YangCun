@@ -1,5 +1,6 @@
 import { _decorator, Component, Node } from 'cc';
-import { ViewName } from '../libs/constants';
+import { AudioManager } from '../AudioManager';
+import { AClip, ViewName } from '../libs/constants';
 import { DialogEvt, EVT } from '../libs/event';
 import { ViewMgr } from '../views/ViewMgr';
 import { DialogMgr } from './DialogMgr';
@@ -44,19 +45,22 @@ export class GamePassDialog extends Component {
 
     onClickNext() {
         console.log(this.name,"onClickNext")
+        AudioManager.ins.play(AClip.CLICK)
         this.close()
 
         ViewMgr.ins.gameView.nextLevel()
     }
 
     onClickBack() {
-        console.log(this.name,"onClickBack")
+        // console.log(this.name,"onClickBack")
+        AudioManager.ins.play(AClip.CLICK)
         this.close()
         DialogMgr.ins.back2LevelView()
     }
 
     onClickClose() {
-        console.log(this.name,"onClickClose")
+        // console.log(this.name,"onClickClose")
+        AudioManager.ins.play(AClip.CLICK)
         this.close()
         DialogMgr.ins.back2LevelView()
     }

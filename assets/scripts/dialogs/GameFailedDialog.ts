@@ -1,5 +1,6 @@
 import { _decorator, Component, Node } from 'cc';
-import { ItemType } from '../libs/constants';
+import { AudioManager } from '../AudioManager';
+import { AClip, ItemType } from '../libs/constants';
 import { DialogEvt, EVT } from '../libs/event';
 import { ViewMgr } from '../views/ViewMgr';
 import { DialogMgr } from './DialogMgr';
@@ -40,25 +41,29 @@ export class GameFailedDialog extends Component {
 
     onClickRestart() {
         console.log(this.name,"onClickRestart")
+        AudioManager.ins.play(AClip.CLICK)
         this.close()
 
         ViewMgr.ins.gameView.reRestart()
     }
 
     onClickBack() {
-        console.log(this.name,"onClickBack")
+        // console.log(this.name,"onClickBack")
+        AudioManager.ins.play(AClip.CLICK)
         this.close()
         DialogMgr.ins.back2LevelView()
     }
 
     onClickClose() {
-        console.log(this.name,"onClickClose")
+        // console.log(this.name,"onClickClose")
+        AudioManager.ins.play(AClip.CLICK)
         this.close()
         DialogMgr.ins.back2LevelView()
     }
 
     onClickRelive() {
-        console.log(this.name,"onClickRestart")
+        // console.log(this.name,"onClickRelive")
+        AudioManager.ins.play(AClip.CLICK)
         if(ViewMgr.ins.gameView.reLive()){
             this.close()
         }

@@ -1,5 +1,6 @@
 import { _decorator, Component, Node, instantiate } from 'cc';
-import { LvStatus } from '../libs/constants';
+import { AudioManager } from '../AudioManager';
+import { AClip, LvStatus } from '../libs/constants';
 import { DataMgr } from '../libs/DataMgr';
 import { Main } from '../Main';
 import { LevelItem } from './LevelItem';
@@ -71,6 +72,7 @@ export class LevelView extends Component {
     }
 
     onClickBack() {
+        AudioManager.ins.play(AClip.CLICK)
         ViewMgr.ins.showView("HomeView")
     }
 }

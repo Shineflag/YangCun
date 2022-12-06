@@ -1,5 +1,6 @@
 import { _decorator, Component, Node, math, instantiate } from "cc";
-import { ItemType, TileAnimTime, TileConfig, TILE_ZONE } from "../libs/constants";
+import { AudioManager } from "../AudioManager";
+import { AClip, ItemType, TileAnimTime, TileConfig, TILE_ZONE } from "../libs/constants";
 import { EVT, TILE_EVT } from "../libs/event";
 import { Tile } from "../libs/Tile";
 import { AreaConfig } from "../libs/yang";
@@ -133,6 +134,10 @@ export class TileGame extends Component {
                 }
             }
         }
+
+        this.scheduleOnce(() => {
+            AudioManager.ins.play(AClip.START)
+        }, 0.05)
     }
 
     //
@@ -297,6 +302,7 @@ export class TileGame extends Component {
     }
 
     onTileSelect(tile: Tile) {
+        AudioManager.ins.play(AClip.CLICK)
         switch (tile.zone) {
             case TILE_ZONE.AREA:
                 this.selectAreaTile(tile)
@@ -384,7 +390,7 @@ export class TileGame extends Component {
                 console.log("leftCount",this.leftCount)
 
                 this.scheduleOnce( () => {
-                    // Global.am.play(AClip.THREE)
+                    AudioManager.ins.play(AClip.THREE)
                     erase.forEach( item => item.erase())
 
                     //三消后面的图案

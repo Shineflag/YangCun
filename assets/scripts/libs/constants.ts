@@ -13,6 +13,12 @@ export const enum TileConfig {
     STACK_TILE = 8,    //堆每层最多放几个
 }
 
+export enum Setting {
+    SOUND = "SET_SOUND",
+    MUSIC = "SET_MUSIC",
+}  
+
+
 export const enum TileAnimTime {
     MOVE = 0.25
 }
@@ -57,7 +63,7 @@ export enum ItemType {
 }
 
 export const GOLD_COST =  {
-    [ItemType.REMOVE] : 25,  //移出
+    [ItemType.REMOVE] : 20,  //移出
     [ItemType.UNDO] : 10,      //撤回
     [ItemType.SHUFFLE] :15, //洗牌
     [ItemType.ADDSLOT] : 30, //加槽
@@ -72,6 +78,15 @@ export const enum POWER_COST {
 export const enum PropsType {
     POWER = 0,  //能量
     GOLD = 1,   //金币
+}
+
+//音效
+export enum AClip {
+    CLICK = 0, //点击
+    THREE,    //合成三个
+    START,    //游戏开始
+    ROCK,     //方块转动
+    SCENE,     //场景切换
 }
 
 

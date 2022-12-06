@@ -1,6 +1,7 @@
 import { _decorator, Component, Node, dynamicAtlasManager, utils, Label } from 'cc';
+import { AudioManager } from '../AudioManager';
 import { DialogMgr } from '../dialogs/DialogMgr';
-import { GOLD_COST, ItemType, POWER_COST, TileConfig, ViewName } from '../libs/constants';
+import { AClip, GOLD_COST, ItemType, POWER_COST, TileConfig, ViewName } from '../libs/constants';
 import { DataMgr } from '../libs/DataMgr';
 import { DataEvt, DialogEvt, EVT, TILE_EVT } from '../libs/event';
 import { ResMgr } from '../libs/ResMgr';
@@ -25,6 +26,9 @@ export class GameView extends Component {
 
     @property(Label)
     lvLabel: Label
+
+    @property(Node)
+    setNode: Node
 
     lv: number //当前关卡
 
@@ -64,11 +68,17 @@ export class GameView extends Component {
     //IView
     show() {
         this.node.active = true
+        this.setNode.active = false
     }
 
     //IView
     close() {
         this.node.active = false
+    }
+
+    onClickPause() {
+        AudioManager.ins.play(AClip.CLICK)
+        this.setNode.active = !this.setNode.active
     }
 
     startLevel(lv: number){
@@ -185,7 +195,8 @@ export class GameView extends Component {
     }
 
     onClickRemove() {
-        console.log("onClickRemove")        
+        console.log("onClickRemove")   
+        AudioManager.ins.play(AClip.CLICK)     
         let needGold = this.useItemNeedGold(ItemType.REMOVE)
         if(DataMgr.ins.gold < needGold){
             TipsMgr.ins.needGold()
@@ -201,6 +212,7 @@ export class GameView extends Component {
 
     onClickUndo() {
         console.log("onClickUndo")
+        AudioManager.ins.play(AClip.CLICK)
         let needGold = this.useItemNeedGold(ItemType.UNDO)
         if(DataMgr.ins.gold < needGold){
             TipsMgr.ins.needGold()
@@ -216,6 +228,7 @@ export class GameView extends Component {
 
     onClickShuffle() {
         console.log("onClickShuffle")
+        AudioManager.ins.play(AClip.CLICK)
         let needGold = this.useItemNeedGold(ItemType.SHUFFLE)
         if(DataMgr.ins.gold < needGold){
             TipsMgr.ins.needGold()
@@ -230,6 +243,7 @@ export class GameView extends Component {
 
     onClickAddSlot() {
         console.log("onClickAddSlot")
+        AudioManager.ins.play(AClip.CLICK)
         let needGold = GOLD_COST.ADDSLOT
         if(DataMgr.ins.gold < needGold){
             TipsMgr.ins.needGold()

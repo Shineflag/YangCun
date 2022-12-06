@@ -1,5 +1,6 @@
 import { _decorator, Component, Game,  } from 'cc';
-import { KViewName, ViewName } from '../libs/constants';
+import { AudioManager } from '../AudioManager';
+import { AClip, KViewName, ViewName } from '../libs/constants';
 import { DataMgr } from '../libs/DataMgr';
 import { GameView } from './GameView';
 import { HomeView } from './HomeView';
@@ -39,6 +40,12 @@ export class ViewMgr extends Component {
             }else {
                 this.views[key].close()
             }
+        }
+        AudioManager.ins.play(AClip.SCENE)
+        if(name == ViewName.GameView){
+            AudioManager.ins.setGameBgm()
+        } else {
+            AudioManager.ins.setMainBgm()
         }
     }
 

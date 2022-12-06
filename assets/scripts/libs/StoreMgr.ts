@@ -1,3 +1,4 @@
+import { Setting } from "./constants"
 import { ILvPlayInfo, IPlayerInfo } from "./yang"
 
 
@@ -33,6 +34,40 @@ export class StoreMgr {
         }
         return StoreMgr._ins
     }
+
+    //音频相关
+    static setSound(v: boolean){
+        if(v){
+            LocalStorage.set(Setting.SOUND, "true")
+        } else {
+            LocalStorage.set(Setting.SOUND, "false")
+        }
+    }
+    
+    static getSound(): boolean {
+        let value = LocalStorage.get(Setting.SOUND)
+        if(value == "true"){
+            return true
+        }
+        return false
+    }
+    
+    static setMusic(v: boolean){
+        if(v){
+            LocalStorage.set(Setting.MUSIC, "true")
+        } else {
+            LocalStorage.set(Setting.MUSIC, "false")
+        }
+    }
+    
+    static getMusic(): boolean {
+        let value = LocalStorage.get(Setting.MUSIC)
+        if(value == "true"){
+            return true
+        }
+        return false
+    }
+    
 
     //玩家信息
     savePlayerInfo(info: IPlayerInfo) {        
