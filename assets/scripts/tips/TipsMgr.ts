@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Label, macro, tween, Vec3 } from 'cc';
+import { _decorator, Component, Node, Label, macro, tween, Vec3, Tween } from 'cc';
 import { DialogMgr } from '../dialogs/DialogMgr';
 import { DataConfig, DATE, PropsType } from '../libs/constants';
 import { DataMgr } from '../libs/DataMgr';
@@ -125,6 +125,7 @@ export class TipsMgr extends Component {
         this.msgNode.active = true        
         this.msgLabel.string = v
         this.msgNode.setPosition(720, 0)
+        Tween.stopAllByTarget(this.msgNode.position)
         tween(this.msgNode.position)
         .to(0.25, new Vec3(0, 0, 0), {
             onUpdate: (target: Vec3) => {
