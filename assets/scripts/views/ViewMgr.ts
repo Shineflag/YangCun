@@ -1,5 +1,6 @@
 import { _decorator, Component, Game,  } from 'cc';
 import { KViewName, ViewName } from '../libs/constants';
+import { DataMgr } from '../libs/DataMgr';
 import { GameView } from './GameView';
 import { HomeView } from './HomeView';
 import { LevelView } from './LevelView';
@@ -59,7 +60,6 @@ export class ViewMgr extends Component {
     //开始某一关卡
     startLevel(lv: number) {
         ViewMgr.ins.showView("GameView")
-
         ViewMgr.ins.gameView.startLevel(lv)
     }
 }

@@ -20,6 +20,9 @@ export class Main extends Component {
     @property([SpriteFrame])
     lvStatusSprame: SpriteFrame[]
 
+    @property([SpriteFrame])
+    propsTypeSpriteFrame: SpriteFrame[]
+
 
     onLoad() {
         console.log("env:", DEBUG, NET_MODE )

@@ -1,12 +1,18 @@
-import { _decorator, Component, Node, Label, macro } from 'cc';
-import { DataConfig, DATE } from '../libs/constants';
+import { _decorator, Component, Node, Label, macro, tween, Vec3 } from 'cc';
+import { DialogMgr } from '../dialogs/DialogMgr';
+import { DataConfig, DATE, PropsType } from '../libs/constants';
 import { DataMgr } from '../libs/DataMgr';
 import { DataEvt, EVT } from '../libs/event';
 import { Utils } from '../libs/untils';
 const { ccclass, property } = _decorator;
 
+const AD_POWER = 25 
+const AD_GOLD = 30
+
 @ccclass('TipsMgr')
 export class TipsMgr extends Component {
+
+    public static ins: TipsMgr
 
     @property(Label)
     powerLabel: Label
@@ -17,12 +23,20 @@ export class TipsMgr extends Component {
     @property(Label) 
     powerTimeLabel: Label
 
+    @property(Node)
+    msgNode: Node
+
+    @property(Label)
+    msgLabel: Label
+
 
     addPowerTime: number = 0
 
     
 
     start() {
+        TipsMgr.ins = this 
+
         this.addPowerTime = DataMgr.ins.lastPowerTime
         this.schedule(() => {
             this.changePowerTime()
@@ -42,20 +56,32 @@ export class TipsMgr extends Component {
 
 
     onClickAddPower() {
-        this.addADPower()
+        this.needPower()
+    }
+
+    needPower() {
+        DialogMgr.ins.showDialog("GamePropsDialog")
+        DialogMgr.ins.gamePropsDialog.setType(PropsType.POWER)
+        DialogMgr.ins.gamePropsDialog.setNum(AD_POWER)
     }
 
     onClickAddGold() {
-        this.addADGold()
+        this.needGold()
+    }
+
+    needGold() {
+        DialogMgr.ins.showDialog("GamePropsDialog")
+        DialogMgr.ins.gamePropsDialog.setType(PropsType.GOLD)
+        DialogMgr.ins.gamePropsDialog.setNum(AD_GOLD)
     }
 
     //看广告得能量
     addADPower() {
-        DataMgr.ins.addPower(25)
+        DataMgr.ins.addPower(AD_POWER)
     }
 
     addADGold(){
-        DataMgr.ins.addGold(30)
+        DataMgr.ins.addGold(AD_GOLD)
     }
 
     onPowerChange(val: number) {
@@ -93,6 +119,28 @@ export class TipsMgr extends Component {
         } else {
             this.powerTimeLabel.node.active = false
         }
+    }
+
+    showMessage(v: string){
+        this.msgNode.active = true        
+        this.msgLabel.string = v
+        this.msgNode.setPosition(720, 0)
+        tween(this.msgNode.position)
+        .to(0.25, new Vec3(0, 0, 0), {
+            onUpdate: (target: Vec3) => {
+                this.msgNode.setPosition(target.x, target.y)
+            }
+        })
+        .delay(0.8)
+        .to(0.25, new Vec3(-720, 0, 0), {
+            onUpdate: (target: Vec3) => {
+                this.msgNode.setPosition(target.x, target.y)
+            }
+        })
+        .call( () => {
+            this.msgNode.active = false
+        })
+        .start()
     }
 
 }

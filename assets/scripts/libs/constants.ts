@@ -17,6 +17,7 @@ export const enum TileAnimTime {
     MOVE = 0.25
 }
 
+//日期相关
 export const  enum DATE {
     SECOND = 1000,
     MIN = 60
@@ -55,11 +56,23 @@ export enum ItemType {
     RELIVE  = "RELIVE",  //复活
 }
 
-export enum ItemGold {
+export enum GOLD_COST {
     REMOVE = 25,  //移出
     UNDO = 10,      //撤回
     SHUFFLE = 15, //洗牌
     ADDSLOT = 30, //加槽
     RELIVE  = 30,  //复活
 }
+
+export const enum POWER_COST {
+    POWER_FIRST = 5, //新关卡 
+    POWER_AGAIN = 1  //重新挑战
+}
+
+export const enum PropsType {
+    POWER = 0,  //能量
+    GOLD = 1,   //金币
+}
+
+
 

@@ -5,6 +5,7 @@ import { ViewMgr } from '../views/ViewMgr';
 import { IDialog } from './Dialog';
 import { GameFailedDialog } from './GameFailedDialog';
 import { GamePassDialog } from './GamePassDialog';
+import { GamePropsDialog } from './GamePropsDialog';
 const { ccclass, property } = _decorator;
 
 @ccclass('DialogMgr')
@@ -16,6 +17,7 @@ export class DialogMgr extends Component {
 
     gamePassDialog: GamePassDialog
     gameFailedDialog: GameFailedDialog
+    gamePropsDialog: GamePropsDialog
 
     dialogs: Record<string,IDialog> = {}
 
@@ -64,6 +66,10 @@ export class DialogMgr extends Component {
 
         this.gamePassDialog = this.getComponentInChildren(GamePassDialog)
         this.dialogs["GamePassDialog"] = this.gamePassDialog
+
+        this.gamePropsDialog = this.getComponentInChildren(GamePropsDialog)
+        this.dialogs["GamePropsDialog"] = this.gamePropsDialog
+
     }
 
     onDialogClose(name: string){

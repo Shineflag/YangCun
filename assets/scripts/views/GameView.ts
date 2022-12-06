@@ -1,12 +1,14 @@
 import { _decorator, Component, Node, dynamicAtlasManager, utils } from 'cc';
 import { DialogMgr } from '../dialogs/DialogMgr';
-import { ItemGold, TileConfig } from '../libs/constants';
+import { GOLD_COST, POWER_COST, TileConfig, ViewName } from '../libs/constants';
 import { DataMgr } from '../libs/DataMgr';
-import { EVT, TILE_EVT } from '../libs/event';
+import { DataEvt, DialogEvt, EVT, TILE_EVT } from '../libs/event';
 import { ResMgr } from '../libs/ResMgr';
 import { Utils } from '../libs/untils';
 import { AreaConfig, ILvPlayInfo, IPlayerInfo } from '../libs/yang';
+import { TipsMgr } from '../tips/TipsMgr';
 import { TileGame } from './TileGame';
+import { ViewMgr } from './ViewMgr';
 const { ccclass, property } = _decorator;
 
 @ccclass('GameView')
@@ -20,6 +22,8 @@ export class GameView extends Component {
 
     lvPlayInfo: ILvPlayInfo  //关卡信息
 
+    needPower: number = 0 //需要的能量
+
     onLoad() {
         console.log("onLoad", this.name) 
         this.tileGame = this.getComponentInChildren(TileGame)
@@ -29,6 +33,7 @@ export class GameView extends Component {
     onEnable() {
         EVT.on(TILE_EVT.FAIL, this.onGameFailed, this)
         EVT.on(TILE_EVT.PASS, this.onGamePass, this)
+
     }
 
     onDisable() {
@@ -54,21 +59,38 @@ export class GameView extends Component {
         this.node.active = false
     }
 
-
-
     startLevel(lv: number){
+        this.lv = lv 
+        this.needPower = 0
+
         //信息统计
-        let playInfo = DataMgr.ins.getLvPlayInfo(lv)
         let now = Utils.getUnixTime()
-        playInfo.lastPlay = now 
-        playInfo.playTimes++
+        let playInfo = DataMgr.ins.getLvPlayInfo(lv)
+        let needPower = POWER_COST.POWER_AGAIN
         if(playInfo.firstPlay == 0){
+            needPower = POWER_COST.POWER_FIRST
             playInfo.firstPlay = now
         }
+
+        //扣除能量
+        if(!DataMgr.ins.subPower(needPower)){
+            this.needPower = needPower
+            EVT.on(DataEvt.CHANGE_POWER,this.needPowerProcess, this)
+            EVT.on(DialogEvt.POWER_CANCEL,this.needPowerProcess, this)
+            TipsMgr.ins.needPower()
+            TipsMgr.ins.showMessage("能量不足")
+            return 
+        }
+        EVT.off(DataEvt.CHANGE_POWER,this.needPowerProcess, this)
+        EVT.off(DialogEvt.POWER_CANCEL,this.needPowerProcess, this)
+        
+
+        playInfo.lastPlay = now 
+        playInfo.playTimes++
+
         this.lvPlayInfo = playInfo
         DataMgr.ins.changeLvPlayInfo(playInfo)
 
-        this.lv = lv 
         let config = this.getLevelConfig(lv)
         console.log("startLevel ", lv, config)
 
@@ -92,6 +114,18 @@ export class GameView extends Component {
 
     reRestart() {
         this.startLevel(this.lv)
+    }
+
+    //因需要power 而暂停的游戏进程
+    needPowerProcess() {
+        if(this.needPower == 0){
+            return 
+        }
+        if(DataMgr.ins.power >= this.needPower){
+            this.startLevel(this.lv)
+        } else {
+            ViewMgr.ins.showView(ViewName.HomeView)
+        }
     }
 
     onGamePass() {

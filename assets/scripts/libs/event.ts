@@ -9,7 +9,8 @@ export enum TILE_EVT {
 }
 
 export enum DialogEvt {
-    CLOSE = "DialogEvt.CLOSE"
+    CLOSE = "DialogEvt.CLOSE",
+    POWER_CANCEL = "DialogEvt.POWER_CANCEL"
 }
 
 export enum ViewEvt {
