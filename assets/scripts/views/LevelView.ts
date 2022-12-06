@@ -3,6 +3,7 @@ import { LvStatus } from '../libs/constants';
 import { DataMgr } from '../libs/DataMgr';
 import { Main } from '../Main';
 import { LevelItem } from './LevelItem';
+import { ViewMgr } from './ViewMgr';
 const { ccclass, property } = _decorator;
 
 @ccclass('LevelView')
@@ -16,11 +17,16 @@ export class LevelView extends Component {
 
     onLoad() {
         console.log("onLoad", this.name) 
+        this.initList()
+    }
+
+    onEnable() {
+        this.refreshList()
     }
 
 
     start() {
-        this.initList()
+        
     }
 
     update(deltaTime: number) {
@@ -37,14 +43,19 @@ export class LevelView extends Component {
             this.listNode.addChild(item)
         }
 
+
+    }
+
+    refreshList() {
         for(let i = 1; i < DataMgr.ins.lastUnlockLevel; i++) {
-            let data = DataMgr.ins.levelPlayInfo(i)
+            let data = DataMgr.ins.getLvPlayInfo(i)
             let item = this.levelMap.get(i)
             item.setStatus(LvStatus.Pass)
             item.setStars(data.star)
         }
 
         if(this.levelMap.has(DataMgr.ins.lastUnlockLevel)) {
+            console.log("unlock", DataMgr.ins.lastUnlockLevel)
             this.levelMap.get(DataMgr.ins.lastUnlockLevel).setStatus(LvStatus.Unlock)
         }
     }
@@ -57,6 +68,10 @@ export class LevelView extends Component {
     //IView
     close() {
         this.node.active = false
+    }
+
+    onClickBack() {
+        ViewMgr.ins.showView("HomeView")
     }
 }
 

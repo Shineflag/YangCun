@@ -7,6 +7,9 @@ const { ccclass, property } = _decorator;
 
 @ccclass('GamePassDialog')
 export class GamePassDialog extends Component {
+    @property([Node])
+    starsNode: Node[]
+
     start() {
 
     }
@@ -22,6 +25,16 @@ export class GamePassDialog extends Component {
     close() {
         this.node.active = false
         EVT.emit(DialogEvt.CLOSE, this.node.name)
+    }
+
+    setStar(v: number){
+        this.starsNode.forEach( (item, i) => {
+            if(i<v){
+                item.active = true
+            } else {
+                item.active = false
+            }
+        })
     }
 
 

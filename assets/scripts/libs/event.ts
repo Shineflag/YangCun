@@ -9,7 +9,11 @@ export enum TILE_EVT {
 }
 
 export enum DialogEvt {
-    CLOSE = "CLOSE"
+    CLOSE = "DialogEvt.CLOSE"
+}
+
+export enum ViewEvt {
+    LEVEL_SELECT = "ViewEvt.LEVEL_SELECT"
 }
 
 export enum DataEvt {

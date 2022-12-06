@@ -1,9 +1,11 @@
-import { _decorator, Component, Node, dynamicAtlasManager } from 'cc';
+import { _decorator, Component, Node, dynamicAtlasManager, utils } from 'cc';
 import { DialogMgr } from '../dialogs/DialogMgr';
 import { ItemGold, TileConfig } from '../libs/constants';
+import { DataMgr } from '../libs/DataMgr';
 import { EVT, TILE_EVT } from '../libs/event';
 import { ResMgr } from '../libs/ResMgr';
-import { AreaConfig } from '../libs/yang';
+import { Utils } from '../libs/untils';
+import { AreaConfig, ILvPlayInfo, IPlayerInfo } from '../libs/yang';
 import { TileGame } from './TileGame';
 const { ccclass, property } = _decorator;
 
@@ -15,6 +17,8 @@ export class GameView extends Component {
     addSlotBtnNode: Node
 
     tileGame: TileGame
+
+    lvPlayInfo: ILvPlayInfo  //关卡信息
 
     onLoad() {
         console.log("onLoad", this.name) 
@@ -53,6 +57,17 @@ export class GameView extends Component {
 
 
     startLevel(lv: number){
+        //信息统计
+        let playInfo = DataMgr.ins.getLvPlayInfo(lv)
+        let now = Utils.getUnixTime()
+        playInfo.lastPlay = now 
+        playInfo.playTimes++
+        if(playInfo.firstPlay == 0){
+            playInfo.firstPlay = now
+        }
+        this.lvPlayInfo = playInfo
+        DataMgr.ins.changeLvPlayInfo(playInfo)
+
         this.lv = lv 
         let config = this.getLevelConfig(lv)
         console.log("startLevel ", lv, config)
@@ -80,7 +95,30 @@ export class GameView extends Component {
     }
 
     onGamePass() {
+        const now = Utils.getUnixTime()
+        const passTime = now - this.lvPlayInfo.lastPlay 
+        this.lvPlayInfo.passTimes++ 
+        let star = 1
+        if(this.tileGame.getItemUseCount() == 0) {
+            star++
+        }
+        if( passTime <= 60*1){
+            star++
+        }
+        if(passTime < this.lvPlayInfo.bestTime || this.lvPlayInfo.bestTime == 0){
+            this.lvPlayInfo.bestTime = passTime
+        }
+        if(star > this.lvPlayInfo.star){
+            this.lvPlayInfo.star = star
+        }
+        DataMgr.ins.changeLvPlayInfo(this.lvPlayInfo)
+
+        if(this.lv == DataMgr.ins.lastUnlockLevel){
+            DataMgr.ins.lastUnlockLevel++
+        }
+
         DialogMgr.ins.showDialog("GamePassDialog")
+        DialogMgr.ins.gamePassDialog.setStar(star)
     }
 
     onClickRemove() {

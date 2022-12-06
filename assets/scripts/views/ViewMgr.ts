@@ -55,6 +55,13 @@ export class ViewMgr extends Component {
         this.gameView = this.getComponentInChildren(GameView)
         this.views[ViewName.GameView] = this.gameView
     }
+
+    //开始某一关卡
+    startLevel(lv: number) {
+        ViewMgr.ins.showView("GameView")
+
+        ViewMgr.ins.gameView.startLevel(lv)
+    }
 }
 
 

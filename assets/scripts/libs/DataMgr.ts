@@ -103,7 +103,7 @@ export class DataMgr {
         return LV_COUNT
     }
 
-    levelPlayInfo(lv: number): ILvPlayInfo{
+    getLvPlayInfo(lv: number): ILvPlayInfo{
         if(!this._lvPlayInfo.has(lv)){
             let info = StoreMgr.ins.getLvPlayInfo(lv)
             if(info == null) {

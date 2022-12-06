@@ -1,6 +1,7 @@
 import { _decorator, Component, Node, Label, Sprite } from 'cc';
 import { LvStatus } from '../libs/constants';
 import { Main } from '../Main';
+import { ViewMgr } from './ViewMgr';
 const { ccclass, property } = _decorator;
 
 @ccclass('LevelItem')
@@ -22,6 +23,7 @@ export class LevelItem extends Component {
     @property(Node)
     lockRoot: Node
 
+    lv: number
 
     setStatus(status: LvStatus){
         this.statusSprite.spriteFrame = Main.ins.lvStatusSprame[status]
@@ -41,7 +43,16 @@ export class LevelItem extends Component {
     }
 
     setLevel(v: number) {
+        this.lv = v
         this.lvLabel.string = v.toString()
+    }
+
+    onClick() {
+        if(this.lockRoot.active){
+            console.log("未解锁")
+        }else {
+            ViewMgr.ins.startLevel(this.lv)
+        }
     }
 }
 
