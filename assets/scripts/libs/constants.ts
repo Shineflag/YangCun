@@ -56,12 +56,12 @@ export enum ItemType {
     RELIVE  = "RELIVE",  //复活
 }
 
-export enum GOLD_COST {
-    REMOVE = 25,  //移出
-    UNDO = 10,      //撤回
-    SHUFFLE = 15, //洗牌
-    ADDSLOT = 30, //加槽
-    RELIVE  = 30,  //复活
+export const GOLD_COST =  {
+    [ItemType.REMOVE] : 25,  //移出
+    [ItemType.UNDO] : 10,      //撤回
+    [ItemType.SHUFFLE] :15, //洗牌
+    [ItemType.ADDSLOT] : 30, //加槽
+    [ItemType.RELIVE] : 30,  //复活
 }
 
 export const enum POWER_COST {

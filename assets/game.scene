@@ -4881,6 +4881,15 @@
     },
     "_enabled": true,
     "__prefab": null,
+    "removeGoldLabel": {
+      "__id__": 94
+    },
+    "undoGoldLabel": {
+      "__id__": 108
+    },
+    "shuffleGoldLabel": {
+      "__id__": 122
+    },
     "_id": "1bYKzhRvxGEYapOiFbdIbe"
   },
   {

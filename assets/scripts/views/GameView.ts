@@ -1,6 +1,6 @@
-import { _decorator, Component, Node, dynamicAtlasManager, utils } from 'cc';
+import { _decorator, Component, Node, dynamicAtlasManager, utils, Label } from 'cc';
 import { DialogMgr } from '../dialogs/DialogMgr';
-import { GOLD_COST, POWER_COST, TileConfig, ViewName } from '../libs/constants';
+import { GOLD_COST, ItemType, POWER_COST, TileConfig, ViewName } from '../libs/constants';
 import { DataMgr } from '../libs/DataMgr';
 import { DataEvt, DialogEvt, EVT, TILE_EVT } from '../libs/event';
 import { ResMgr } from '../libs/ResMgr';
@@ -13,6 +13,15 @@ const { ccclass, property } = _decorator;
 
 @ccclass('GameView')
 export class GameView extends Component {  
+
+    @property(Label)
+    removeGoldLabel: Label
+
+    @property(Label)
+    undoGoldLabel: Label
+
+    @property(Label)
+    shuffleGoldLabel: Label
 
     lv: number //当前关卡
 
@@ -94,9 +103,10 @@ export class GameView extends Component {
         let config = this.getLevelConfig(lv)
         console.log("startLevel ", lv, config)
 
-        this.addSlotBtnNode.active = true
-
         this.tileGame.startGame(config)
+
+        this.addSlotBtnNode.active = true
+        this.refreshGoldLabel()
     }
 
     getLevelConfig(lv: number): AreaConfig{
@@ -133,7 +143,7 @@ export class GameView extends Component {
         const passTime = now - this.lvPlayInfo.lastPlay 
         this.lvPlayInfo.passTimes++ 
         let star = 1
-        if(this.tileGame.getItemUseCount() == 0) {
+        if(this.tileGame.getAllItemUseCount() == 0) {
             star++
         }
         if( passTime <= 60*1){
@@ -156,25 +166,67 @@ export class GameView extends Component {
     }
 
     onClickRemove() {
-        console.log("onClickRemove")
-        this.tileGame.useRemove()
+        console.log("onClickRemove")        
+        let needGold = this.useItemNeedGold(ItemType.REMOVE)
+        if(DataMgr.ins.gold < needGold){
+            TipsMgr.ins.needGold()
+        } else {
+            if(this.tileGame.useRemove()){
+                DataMgr.ins.subGold(needGold)
+                this.refreshGoldLabel()
+            }
+        }
 
     }
 
     onClickUndo() {
-        console.log("onClickRemove")
-        this.tileGame.useUndo()
+        console.log("onClickUndo")
+        let needGold = this.useItemNeedGold(ItemType.UNDO)
+        if(DataMgr.ins.gold < needGold){
+            TipsMgr.ins.needGold()
+        } else {
+            if(this.tileGame.useUndo()){
+                DataMgr.ins.subGold(needGold)
+                this.refreshGoldLabel()
+            }
+        }
+
     }
 
     onClickShuffle() {
-        console.log("onClickRemove")
-        this.tileGame.useShuffle()
+        console.log("onClickShuffle")
+        let needGold = this.useItemNeedGold(ItemType.SHUFFLE)
+        if(DataMgr.ins.gold < needGold){
+            TipsMgr.ins.needGold()
+        } else {
+            if(this.tileGame.useShuffle()){
+                DataMgr.ins.subGold(needGold)
+                this.refreshGoldLabel()
+            }
+        }
     }
 
     onClickAddSlot() {
         console.log("onClickAddSlot")
-        this.tileGame.useAddSlot()
-        this.addSlotBtnNode.active = false
+        let needGold = this.useItemNeedGold(ItemType.ADDSLOT)
+        if(DataMgr.ins.gold < needGold){
+            TipsMgr.ins.needGold()
+        } else {
+            if(this.tileGame.useAddSlot()){
+                DataMgr.ins.subGold(needGold)
+                this.addSlotBtnNode.active = false
+            }
+        }
+    }
+
+    refreshGoldLabel() {
+        this.removeGoldLabel.string = `X ${this.useItemNeedGold(ItemType.REMOVE)}`
+        this.undoGoldLabel.string = `X ${this.useItemNeedGold(ItemType.UNDO)}`
+        this.shuffleGoldLabel.string = `X ${this.useItemNeedGold(ItemType.SHUFFLE)}`
+    }
+
+    useItemNeedGold(t: ItemType): number {
+        return GOLD_COST[t] * (this.tileGame.getItemUseCount(t) + 1)
     }
 
 

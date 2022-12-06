@@ -532,7 +532,11 @@ export class TileGame extends Component {
 
     }
 
-    getItemUseCount(): number {
+    getItemUseCount(t: ItemType):number {
+        return this.itemUse[t]
+    }
+
+    getAllItemUseCount(): number {
         let count = 0
         for(let k in ItemType){
             count += this.itemUse[k]
