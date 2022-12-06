@@ -60,7 +60,7 @@ export class TipsMgr extends Component {
     }
 
     needPower() {
-        DialogMgr.ins.showDialog("GamePropsDialog")
+        DialogMgr.ins.addShowDialog("GamePropsDialog")
         DialogMgr.ins.gamePropsDialog.setType(PropsType.POWER)
         DialogMgr.ins.gamePropsDialog.setNum(AD_POWER)
     }
@@ -70,7 +70,7 @@ export class TipsMgr extends Component {
     }
 
     needGold() {
-        DialogMgr.ins.showDialog("GamePropsDialog")
+        DialogMgr.ins.addShowDialog("GamePropsDialog")
         DialogMgr.ins.gamePropsDialog.setType(PropsType.GOLD)
         DialogMgr.ins.gamePropsDialog.setNum(AD_GOLD)
     }

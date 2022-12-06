@@ -1,4 +1,5 @@
 import { _decorator, Component, Node } from 'cc';
+import { ItemType } from '../libs/constants';
 import { DialogEvt, EVT } from '../libs/event';
 import { ViewMgr } from '../views/ViewMgr';
 import { DialogMgr } from './DialogMgr';
@@ -6,6 +7,13 @@ const { ccclass, property } = _decorator;
 
 @ccclass('GameFailedDialog')
 export class GameFailedDialog extends Component {
+
+    @property(Node)
+    reliveBtn: Node
+
+    @property(Node)
+    backBtn: Node
+
     start() {
 
     }
@@ -16,11 +24,18 @@ export class GameFailedDialog extends Component {
 
     show() {
         this.node.active = true
+        let canRelive = ViewMgr.ins.gameView.tileGame.getItemUseCount(ItemType.RELIVE) > 0 ? false: true
+        this.backBtn.active = !canRelive
+        this.reliveBtn.active = canRelive
     }
 
     close() {
         this.node.active = false
         EVT.emit(DialogEvt.CLOSE, this.node.name)
+    }
+
+    isShow(): boolean {
+        return this.node.active
     }
 
     onClickRestart() {
@@ -40,6 +55,13 @@ export class GameFailedDialog extends Component {
         console.log(this.name,"onClickClose")
         this.close()
         DialogMgr.ins.back2LevelView()
+    }
+
+    onClickRelive() {
+        console.log(this.name,"onClickRestart")
+        if(ViewMgr.ins.gameView.reLive()){
+            this.close()
+        }
     }
 }
 

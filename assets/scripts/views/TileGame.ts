@@ -532,6 +532,17 @@ export class TileGame extends Component {
 
     }
 
+    useRelive(): boolean {
+        if(this.listTiles.length > 0) {
+            this.itemUse[ItemType.RELIVE]++
+            this.listTiles.forEach( item => {
+                this.addStackTile(item)
+            })
+            this.listTiles = []
+        }
+        return true
+    }
+
     getItemUseCount(t: ItemType):number {
         return this.itemUse[t]
     }

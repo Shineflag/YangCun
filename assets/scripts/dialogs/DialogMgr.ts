@@ -60,6 +60,11 @@ export class DialogMgr extends Component {
         this.bg.active = true
     }
 
+    addShowDialog(name: string) {
+        this.dialogs[name].show()
+        this.bg.active = true
+    }
+
     initDialogs() {
         this.gameFailedDialog = this.getComponentInChildren(GameFailedDialog)
         this.dialogs["GameFailedDialog"] = this.gameFailedDialog
@@ -74,7 +79,15 @@ export class DialogMgr extends Component {
 
     onDialogClose(name: string){
         console.log("onDialogClose", name)
-        this.bg.active = false
+        let bgActive = false 
+        for( let k in this.dialogs) {
+
+            if(this.dialogs[k].isShow()) {
+                bgActive = true
+                break
+            }
+        }
+        this.bg.active = bgActive
     }
 
     back2LevelView() {

@@ -27,6 +27,10 @@ export class GamePassDialog extends Component {
         EVT.emit(DialogEvt.CLOSE, this.node.name)
     }
 
+    isShow(): boolean {
+        return this.node.active
+    }
+
     setStar(v: number){
         this.starsNode.forEach( (item, i) => {
             if(i<v){

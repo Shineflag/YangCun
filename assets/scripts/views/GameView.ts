@@ -23,6 +23,9 @@ export class GameView extends Component {
     @property(Label)
     shuffleGoldLabel: Label
 
+    @property(Label)
+    lvLabel: Label
+
     lv: number //当前关卡
 
     addSlotBtnNode: Node
@@ -71,6 +74,7 @@ export class GameView extends Component {
     startLevel(lv: number){
         this.lv = lv 
         this.needPower = 0
+        this.lvLabel.string = `第 ${lv} 关`
 
         //信息统计
         let now = Utils.getUnixTime()
@@ -165,11 +169,27 @@ export class GameView extends Component {
         DialogMgr.ins.gamePassDialog.setStar(star)
     }
 
+    reLive() {
+        let needGold = GOLD_COST.RELIVE
+        if(DataMgr.ins.gold < needGold){
+            TipsMgr.ins.needGold()
+            TipsMgr.ins.showMessage("金币数量不足")
+            return false
+        } else {
+            if(this.tileGame.useRelive()){
+                DataMgr.ins.subGold(needGold)
+            }
+
+            return true
+        }
+    }
+
     onClickRemove() {
         console.log("onClickRemove")        
         let needGold = this.useItemNeedGold(ItemType.REMOVE)
         if(DataMgr.ins.gold < needGold){
             TipsMgr.ins.needGold()
+            TipsMgr.ins.showMessage("金币数量不足")
         } else {
             if(this.tileGame.useRemove()){
                 DataMgr.ins.subGold(needGold)
@@ -184,6 +204,7 @@ export class GameView extends Component {
         let needGold = this.useItemNeedGold(ItemType.UNDO)
         if(DataMgr.ins.gold < needGold){
             TipsMgr.ins.needGold()
+            TipsMgr.ins.showMessage("金币数量不足")
         } else {
             if(this.tileGame.useUndo()){
                 DataMgr.ins.subGold(needGold)
@@ -198,6 +219,7 @@ export class GameView extends Component {
         let needGold = this.useItemNeedGold(ItemType.SHUFFLE)
         if(DataMgr.ins.gold < needGold){
             TipsMgr.ins.needGold()
+            TipsMgr.ins.showMessage("金币数量不足")
         } else {
             if(this.tileGame.useShuffle()){
                 DataMgr.ins.subGold(needGold)
@@ -208,9 +230,10 @@ export class GameView extends Component {
 
     onClickAddSlot() {
         console.log("onClickAddSlot")
-        let needGold = this.useItemNeedGold(ItemType.ADDSLOT)
+        let needGold = GOLD_COST.ADDSLOT
         if(DataMgr.ins.gold < needGold){
             TipsMgr.ins.needGold()
+            TipsMgr.ins.showMessage("金币数量不足")
         } else {
             if(this.tileGame.useAddSlot()){
                 DataMgr.ins.subGold(needGold)

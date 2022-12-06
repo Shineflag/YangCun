@@ -29,6 +29,10 @@ export class GamePropsDialog extends Component {
         EVT.emit(DialogEvt.CLOSE, this.node.name)
     }
 
+    isShow(): boolean {
+        return this.node.active
+    }
+
     setType(t: PropsType){
         this.propsType = t 
         this.iconSprite.spriteFrame = Main.ins.propsTypeSpriteFrame[t]
