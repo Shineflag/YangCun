@@ -82,6 +82,12 @@ export class GameView extends Component {
     }
 
     startLevel(lv: number){
+        if(lv > DataMgr.ins.lvCount){
+            TipsMgr.ins.showMessage("恭喜全部通关")
+            ViewMgr.ins.showView(ViewName.LevelView)
+            return 
+        }
+
         this.lv = lv 
         this.needPower = 0
         this.lvLabel.string = `第 ${lv} 关`
@@ -177,6 +183,7 @@ export class GameView extends Component {
 
         DialogMgr.ins.showDialog("GamePassDialog")
         DialogMgr.ins.gamePassDialog.setStar(star)
+        DialogMgr.ins.gamePassDialog.setPassTime(passTime, this.lvPlayInfo.bestTime)
     }
 
     reLive() {

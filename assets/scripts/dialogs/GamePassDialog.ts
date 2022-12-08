@@ -1,7 +1,8 @@
-import { _decorator, Component, Node } from 'cc';
+import { _decorator, Component, Node, Label } from 'cc';
 import { AudioManager } from '../AudioManager';
 import { AClip, ViewName } from '../libs/constants';
 import { DialogEvt, EVT } from '../libs/event';
+import { Utils } from '../libs/untils';
 import { ViewMgr } from '../views/ViewMgr';
 import { DialogMgr } from './DialogMgr';
 const { ccclass, property } = _decorator;
@@ -10,6 +11,12 @@ const { ccclass, property } = _decorator;
 export class GamePassDialog extends Component {
     @property([Node])
     starsNode: Node[]
+
+    @property(Label)
+    passTimeLabel: Label
+
+    @property(Label)
+    bestPassTimeLabel: Label
 
     start() {
 
@@ -42,6 +49,10 @@ export class GamePassDialog extends Component {
         })
     }
 
+    setPassTime(pass: number, best: number){
+        this.passTimeLabel.string = `本次用时: ${Utils.formatSecond2MinSec(pass, "分", "秒")}`
+        this.bestPassTimeLabel.string = `最佳用时: ${Utils.formatSecond2MinSec(best, "分", "秒")}`
+    }
 
     onClickNext() {
         console.log(this.name,"onClickNext")

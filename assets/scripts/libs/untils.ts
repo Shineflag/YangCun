@@ -13,9 +13,9 @@ export class Utils {
         return val > 9 ? val.toString() : `0${val}`
     }
 
-    static formatSecond2MinSec(val: number) {
+    static formatSecond2MinSec(val: number, minSp:string = ":", secSp: string = "") {
         let min = Math.floor(val/DATE.MIN)
         let sec = val % DATE.MIN
-        return `${Utils.formatPrefixNum(min)}:${Utils.formatPrefixNum(sec)}`
+        return `${Utils.formatPrefixNum(min)}${minSp}${Utils.formatPrefixNum(sec)}${secSp}`
     }
 }
