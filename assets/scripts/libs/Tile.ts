@@ -62,7 +62,7 @@ export class Tile extends Component {
     }
 
     onTouchStart() {
-        console.log("onTouchStart",this.idx, this.zone, this.active)
+        console.log("onTouchStart",this.idx, this.val,this.zone, this.active)
         if(this.zone < TILE_ZONE.AREA) return 
         if(this.active) {
             this.setLargeScale()
@@ -70,7 +70,7 @@ export class Tile extends Component {
     }
 
     onTouchEnded() {
-        console.log("onTouchStart",this.idx, this.zone, this.active)
+        console.log("onTouchEnded",this.idx, this.val,this.zone, this.active)
         if(this.zone < TILE_ZONE.AREA) return 
         if(this.active) {
             EVT.emit(TILE_EVT.SELECT, this)

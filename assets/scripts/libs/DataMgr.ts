@@ -3,7 +3,7 @@ import { StoreMgr } from "./StoreMgr"
 import { ILvPlayInfo, IlvPropInfo, IPlayerInfo } from "./yang"
 
 
-const LV_COUNT = 50
+const LV_COUNT = 9
 
 export class DataMgr {
     private static _ins: DataMgr
