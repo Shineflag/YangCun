@@ -2921,6 +2921,10 @@
     "listNode": {
       "__id__": 68
     },
+    "awaitPrefab": {
+      "__uuid__": "7e412913-fe1f-4c1a-a1cc-36730fd07929",
+      "__expectedType__": "cc.Prefab"
+    },
     "_id": "94Qr9OhDVPa696TSsL7LpZ"
   },
   {

@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, instantiate } from 'cc';
+import { _decorator, Component, Node, instantiate, Prefab } from 'cc';
 import { AudioManager } from '../AudioManager';
 import { AClip, LvStatus } from '../libs/constants';
 import { DataMgr } from '../libs/DataMgr';
@@ -12,6 +12,9 @@ export class LevelView extends Component {
 
     @property(Node)
     listNode: Node
+
+    @property(Prefab)
+    awaitPrefab: Prefab
 
 
     levelMap: Map<number, LevelItem> = new Map<number, LevelItem>()
@@ -43,6 +46,8 @@ export class LevelView extends Component {
             this.levelMap.set(i, li)
             this.listNode.addChild(item)
         }
+        let awaitNode = instantiate(this.awaitPrefab)
+        this.listNode.addChild(awaitNode)
 
 
     }

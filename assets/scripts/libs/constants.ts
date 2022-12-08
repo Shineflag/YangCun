@@ -37,7 +37,7 @@ export enum LvStatus {
 
 //游戏的一些数值配置
 export const enum DataConfig {
-    MAX_POWER = 50,
+    MAX_POWER = 25,
     ADD_POWER_TIME = 120
 }
 

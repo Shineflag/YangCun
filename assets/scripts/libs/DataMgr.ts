@@ -21,7 +21,7 @@ export class DataMgr {
         this._playerInfo = StoreMgr.ins.getPlayerInfo()
         if(this._playerInfo == null){
             this._playerInfo = {
-                power: 50,  //体力
+                power: 30,  //体力
                 gold: 30,   //金币
                 lastAddPowerTime: 0, //最后加体力的世界搓
                 lastUnLockLevel: 1, //最后解锁的关卡

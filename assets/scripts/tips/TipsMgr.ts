@@ -7,7 +7,7 @@ import { DataEvt, EVT } from '../libs/event';
 import { Utils } from '../libs/untils';
 const { ccclass, property } = _decorator;
 
-const AD_POWER = 25 
+const AD_POWER = 20 
 const AD_GOLD = 30
 
 @ccclass('TipsMgr')
