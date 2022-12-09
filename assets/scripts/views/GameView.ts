@@ -166,7 +166,7 @@ export class GameView extends Component {
         if(this.tileGame.getAllItemUseCount() == 0) {
             star++
         }
-        if( passTime <= 60*1){
+        if( passTime <= this.tileGame.total * 2){
             star++
         }
         if(passTime < this.lvPlayInfo.bestTime || this.lvPlayInfo.bestTime == 0){
@@ -203,6 +203,8 @@ export class GameView extends Component {
 
     onClickRemove() {
         console.log("onClickRemove")   
+        this.setNode.active = false
+
         AudioManager.ins.play(AClip.CLICK)     
         let needGold = this.useItemNeedGold(ItemType.REMOVE)
         if(DataMgr.ins.gold < needGold){
@@ -219,6 +221,8 @@ export class GameView extends Component {
 
     onClickUndo() {
         console.log("onClickUndo")
+        this.setNode.active = false
+
         AudioManager.ins.play(AClip.CLICK)
         let needGold = this.useItemNeedGold(ItemType.UNDO)
         if(DataMgr.ins.gold < needGold){
@@ -235,6 +239,8 @@ export class GameView extends Component {
 
     onClickShuffle() {
         console.log("onClickShuffle")
+        this.setNode.active = false
+
         AudioManager.ins.play(AClip.CLICK)
         let needGold = this.useItemNeedGold(ItemType.SHUFFLE)
         if(DataMgr.ins.gold < needGold){
@@ -250,6 +256,8 @@ export class GameView extends Component {
 
     onClickAddSlot() {
         console.log("onClickAddSlot")
+        this.setNode.active = false
+
         AudioManager.ins.play(AClip.CLICK)
         let needGold = GOLD_COST.ADDSLOT
         if(DataMgr.ins.gold < needGold){
