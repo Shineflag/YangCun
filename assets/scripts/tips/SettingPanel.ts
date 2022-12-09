@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Toggle } from 'cc';
+import { _decorator, Component, Node, Toggle, Input, input, UITransform, EventTouch } from 'cc';
 import { AudioManager } from '../AudioManager';
 import { AClip, ViewName } from '../libs/constants';
 import { StoreMgr } from '../libs/StoreMgr';
@@ -13,14 +13,35 @@ export class SettingPanel extends Component {
 
     @property(Toggle)
     musicToggle: Toggle
+
+    onEnable() {
+        console.log(this.name, "onEnable")
+        input.on(Input.EventType.TOUCH_START, this.onInputTouch, this)
+    } 
+
+    onDisable() {
+        console.log(this.name, "onDisable")
+        input.off(Input.EventType.TOUCH_START, this.onInputTouch, this)
+    }
     
     start() {
         this.musicToggle.setIsCheckedWithoutNotify(!StoreMgr.getMusic())
         this.soundToggle.setIsCheckedWithoutNotify(!StoreMgr.getSound())
+
+
     }
 
     update(deltaTime: number) {
         
+    }
+
+    onInputTouch(evt: EventTouch ) {
+        let rect = this.node.getComponent(UITransform).getBoundingBoxToWorld()
+        let p = evt.getLocation()
+        // console.log(this.name, "onInputTouch", rect, p, evt.getUILocation())
+        if(!rect.contains(p)) {
+            this.node.active = false
+        }
     }
 
     onSoundToggleChange(){
