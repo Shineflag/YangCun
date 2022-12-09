@@ -136,6 +136,7 @@ export class GameView extends Component {
 
     onGameFailed() {
         DialogMgr.ins.showDialog("GameFailedDialog")
+        AudioManager.ins.play(AClip.LOSE)
     }
 
     nextLevel() {
@@ -160,6 +161,7 @@ export class GameView extends Component {
 
     onGamePass() {
         const now = Utils.getUnixTime()
+        AudioManager.ins.play(AClip.WIN)
         const passTime = now - this.lvPlayInfo.lastPlay 
         this.lvPlayInfo.passTimes++ 
         let star = 1

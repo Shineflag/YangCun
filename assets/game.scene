@@ -196,7 +196,7 @@
     "_enabled": true,
     "__prefab": null,
     "_clip": {
-      "__uuid__": "a9f84207-9ef6-42a1-a940-4b5f0d23c840",
+      "__uuid__": "cb77ae30-9683-4f59-b557-24ae05c3b610",
       "__expectedType__": "cc.AudioClip"
     },
     "_loop": true,
@@ -348,6 +348,14 @@
       {
         "__uuid__": "fbbca191-755b-4ce7-905e-1f5208324408",
         "__expectedType__": "cc.AudioClip"
+      },
+      {
+        "__uuid__": "a763ec21-4907-4996-90c6-112ce042679f",
+        "__expectedType__": "cc.AudioClip"
+      },
+      {
+        "__uuid__": "1d93cae7-7c36-43ce-ba2a-63c9f4706090",
+        "__expectedType__": "cc.AudioClip"
       }
     ],
     "gameClip": {
@@ -355,7 +363,7 @@
       "__expectedType__": "cc.AudioClip"
     },
     "mainClip": {
-      "__uuid__": "a9f84207-9ef6-42a1-a940-4b5f0d23c840",
+      "__uuid__": "cb77ae30-9683-4f59-b557-24ae05c3b610",
       "__expectedType__": "cc.AudioClip"
     },
     "_id": "9bKG4KOIxCSolsdR7NpMpA"

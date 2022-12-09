@@ -87,6 +87,8 @@ export enum AClip {
     START,    //游戏开始
     ROCK,     //方块转动
     SCENE,     //场景切换
+    WIN,       //过关
+    LOSE,      //失败
 }
 
 
