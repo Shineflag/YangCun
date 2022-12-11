@@ -1,3 +1,4 @@
+import { DataConfig } from "./constants"
 import { DataEvt, EVT } from "./event"
 import { StoreMgr } from "./StoreMgr"
 import { ILvPlayInfo, IlvPropInfo, IPlayerInfo } from "./yang"
@@ -21,8 +22,8 @@ export class DataMgr {
         this._playerInfo = StoreMgr.ins.getPlayerInfo()
         if(this._playerInfo == null){
             this._playerInfo = {
-                power: 30,  //体力
-                gold: 30,   //金币
+                power: DataConfig.MAX_POWER,  //体力
+                gold: DataConfig.BASE_GOLD,   //金币
                 lastAddPowerTime: 0, //最后加体力的世界搓
                 lastUnLockLevel: 1, //最后解锁的关卡
             }

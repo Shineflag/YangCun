@@ -1,6 +1,7 @@
 import { _decorator, Component, Node, Toggle, Input, input, UITransform, EventTouch } from 'cc';
 import { AudioManager } from '../AudioManager';
 import { AClip, ViewName } from '../libs/constants';
+import { EVT, TILE_EVT } from '../libs/event';
 import { StoreMgr } from '../libs/StoreMgr';
 import { ViewMgr } from '../views/ViewMgr';
 const { ccclass, property } = _decorator;
@@ -17,11 +18,13 @@ export class SettingPanel extends Component {
     onEnable() {
         console.log(this.name, "onEnable")
         input.on(Input.EventType.TOUCH_START, this.onInputTouch, this)
+        EVT.on(TILE_EVT.SELECT, this.onTileSelect, this)
     } 
 
     onDisable() {
         console.log(this.name, "onDisable")
         input.off(Input.EventType.TOUCH_START, this.onInputTouch, this)
+        EVT.off(TILE_EVT.SELECT, this.onTileSelect, this)
     }
     
     start() {
@@ -42,6 +45,9 @@ export class SettingPanel extends Component {
         if(!rect.contains(p)) {
             this.node.active = false
         }
+    }
+    onTileSelect() {
+        this.node.active = false
     }
 
     onSoundToggleChange(){

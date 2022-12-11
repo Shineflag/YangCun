@@ -9460,7 +9460,7 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 192,
+      "width": 240,
       "height": 75.6
     },
     "_anchorPoint": {
@@ -9489,7 +9489,7 @@
       "b": 60,
       "a": 255
     },
-    "_string": "挑战成功",
+    "_string": "该死的魅力",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
     "_actualFontSize": 48,
@@ -11678,7 +11678,7 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 192,
+      "width": 240,
       "height": 75.6
     },
     "_anchorPoint": {
@@ -11707,7 +11707,7 @@
       "b": 6,
       "a": 255
     },
-    "_string": "槽位已满",
+    "_string": "手滑了一下",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
     "_actualFontSize": 48,
@@ -11924,7 +11924,7 @@
       "b": 255,
       "a": 255
     },
-    "_string": "重新挑战",
+    "_string": "大侠再战",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
     "_actualFontSize": 48,
@@ -12677,7 +12677,7 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 96,
+      "width": 144,
       "height": 75.6
     },
     "_anchorPoint": {
@@ -12706,7 +12706,7 @@
       "b": 255,
       "a": 255
     },
-    "_string": "复活",
+    "_string": "信春哥",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
     "_actualFontSize": 48,

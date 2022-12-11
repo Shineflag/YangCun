@@ -46,10 +46,10 @@ export class StoreMgr {
     
     static getSound(): boolean {
         let value = LocalStorage.get(Setting.SOUND)
-        if(value == "true"){
-            return true
+        if(value == "false"){
+            return false
         }
-        return false
+        return true
     }
     
     static setMusic(v: boolean){
@@ -62,10 +62,10 @@ export class StoreMgr {
     
     static getMusic(): boolean {
         let value = LocalStorage.get(Setting.MUSIC)
-        if(value == "true"){
-            return true
+        if(value == "false"){
+            return false
         }
-        return false
+        return true
     }
     
 

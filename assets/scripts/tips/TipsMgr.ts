@@ -33,7 +33,6 @@ export class TipsMgr extends Component {
 
     addPowerTime: number = 0
 
-    
 
     start() {
         TipsMgr.ins = this 
@@ -85,10 +84,16 @@ export class TipsMgr extends Component {
         this.powerLabel.string = val.toString()
         if(val < DataConfig.MAX_POWER ) {
             if(this.addPowerTime == 0) {
-                this.addPowerTime = Utils.getUnixTime() 
+                const now = Utils.getUnixTime() 
+                this.addPowerTime = now 
+                DataMgr.ins.lastPowerTime = now 
+
+                this.powerTimeLabel.node.active = true
             }
         } else {
             this.addPowerTime = 0
+            DataMgr.ins.lastPowerTime = 0
+            this.powerTimeLabel.node.active = false
         }
     }
 
@@ -101,21 +106,22 @@ export class TipsMgr extends Component {
             let now =  Utils.getUnixTime()      
             let pass =   now - this.addPowerTime 
             if(pass >= DataConfig.ADD_POWER_TIME) {
-                let power = Math.floor(pass/DataConfig.ADD_POWER_TIME)
-                DataMgr.ins.addPower(power)
                 this.addPowerTime = now
                 DataMgr.ins.lastPowerTime = now 
 
+                let power = Math.floor(pass/DataConfig.ADD_POWER_TIME)
+                if(DataMgr.ins.power   + power > DataConfig.MAX_POWER){
+                    power = DataConfig.MAX_POWER - DataMgr.ins.power 
+                }
+                if(power > 0) {
+                    DataMgr.ins.addPower(power)
+                }
                 pass = pass % DataConfig.ADD_POWER_TIME
             }
 
             let left = DataConfig.ADD_POWER_TIME - pass
             this.powerTimeLabel.string = Utils.formatSecond2MinSec(left)
-      
-            this.powerTimeLabel.node.active = true
-        } else {
-            this.powerTimeLabel.node.active = false
-        }
+        } 
     }
 
     showMessage(v: string){
