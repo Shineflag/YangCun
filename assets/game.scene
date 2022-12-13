@@ -855,7 +855,7 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 232.01,
+      "width": 245.34,
       "height": 60.48
     },
     "_anchorPoint": {
@@ -884,7 +884,7 @@
       "b": 255,
       "a": 255
     },
-    "_string": "开 始 闯 关",
+    "_string": "咩 咩  闯 关",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
     "_actualFontSize": 48,
@@ -6773,7 +6773,7 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 279.163,
+      "x": 281.463,
       "y": 159.21,
       "z": 0
     },
@@ -12745,7 +12745,7 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 53.2,
+      "x": 62.3,
       "y": 8,
       "z": 0
     },
@@ -12850,7 +12850,7 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 105,
+      "x": 108.6,
       "y": 8,
       "z": 0
     },
@@ -13705,7 +13705,7 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 27.78,
+      "width": 40,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -13734,7 +13734,7 @@
       "b": 8,
       "a": 255
     },
-    "_string": "AD",
+    "_string": "分享",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
     "_actualFontSize": 20,

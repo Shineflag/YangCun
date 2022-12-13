@@ -18,4 +18,9 @@ export class Utils {
         let sec = val % DATE.MIN
         return `${Utils.formatPrefixNum(min)}${minSp}${Utils.formatPrefixNum(sec)}${secSp}`
     }
+
+    static getFormatDay(): string {
+        const d = new Date()
+        return `${d.getFullYear}-${d.getMonth()}-${d.getDate()}`
+    }
 }

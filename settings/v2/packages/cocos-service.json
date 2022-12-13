@@ -16,7 +16,13 @@
       "config_id": "31c8d3",
       "config_name": "Default",
       "config_remarks": "",
-      "services": []
+      "services": [
+        {
+          "service_id": "316",
+          "enable": false,
+          "param": {}
+        }
+      ]
     }
   ]
 }

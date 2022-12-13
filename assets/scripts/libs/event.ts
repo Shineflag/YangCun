@@ -22,5 +22,9 @@ export enum DataEvt {
     CHANGE_POWER = "DataEvt.CHANGE_POWER"
 }
 
+export enum PlatformEvt {
+    SHARE_APP = "PlatformEvt.SHARE_APP"
+}
+
 
 

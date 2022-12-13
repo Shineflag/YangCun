@@ -1,6 +1,7 @@
 import { _decorator, Component, Node, sys, view, Prefab, SpriteFrame } from 'cc';
 import { DEBUG, NET_MODE } from 'cc/env';
 import { ResMgr } from './libs/ResMgr';
+import { PlatMgr } from './platform/PlatMgr';
 const { ccclass, property } = _decorator;
 
 @ccclass('Main')
@@ -37,6 +38,7 @@ export class Main extends Component {
     }
 
     start() {
+        PlatMgr.ins.init()
         ResMgr.ins.loadLeveConfig()
         // ResMgr.ins.loadTilesSpriteFrame("yang")
     }

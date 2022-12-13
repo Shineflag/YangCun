@@ -1,4 +1,5 @@
 import { Setting } from "./constants"
+import { Utils } from "./untils"
 import { ILvPlayInfo, IPlayerInfo } from "./yang"
 
 
@@ -94,5 +95,35 @@ export class StoreMgr {
 
     saveLvPlayInfo( info: ILvPlayInfo) {
         LocalStorage.set(`LV_PLAY_INFO_${info.id}`, encode(info))
+    }
+
+    getTodayRewardTimes(): number {
+        let key = "TODAY_REWARD_TIMES"
+        let day = Utils.getFormatDay()
+        let v = LocalStorage.get(key)
+        if(v == ""){
+            return 0
+        }
+        let obj = JSON.parse(v)
+        if(obj[day]){
+            return obj[day]
+        }
+        return 0
+    }
+    addTodayRewardTimes() {
+        let key = "TODAY_REWARD_TIMES"
+        let day = Utils.getFormatDay()
+        let v = LocalStorage.get(key)
+        let obj = {
+            [day] : 1
+        }
+        if(v != ""){
+            let o = JSON.parse(v)
+            if(o[day]){
+                obj[day] = o[day] + 1
+                
+            }
+        }
+        LocalStorage.set(key, JSON.stringify(obj))
     }
 }

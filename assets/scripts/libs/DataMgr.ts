@@ -31,10 +31,13 @@ export class DataMgr {
             StoreMgr.ins.savePlayerInfo(this._playerInfo)
         }
 
+        
+
     }
 
     private _playerInfo: IPlayerInfo
     private _lvPlayInfo: Map<number, ILvPlayInfo> = new Map<number, ILvPlayInfo>()
+
 
 
     get gold(): number {
@@ -124,9 +127,18 @@ export class DataMgr {
         return this._lvPlayInfo.get(lv)
     }
 
+    //改变关卡的在玩信息
     changeLvPlayInfo(info: ILvPlayInfo) {
         this._lvPlayInfo.set(info.id, info)
         StoreMgr.ins.saveLvPlayInfo( info)
+    }
+
+    get rewardTimes(): number {
+        return StoreMgr.ins.getTodayRewardTimes()
+    }
+
+    addRewardTimes() {
+        StoreMgr.ins.addTodayRewardTimes()
     }
 
 

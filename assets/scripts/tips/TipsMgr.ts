@@ -3,12 +3,15 @@ import { AudioManager } from '../AudioManager';
 import { DialogMgr } from '../dialogs/DialogMgr';
 import { AClip, DataConfig, DATE, PropsType } from '../libs/constants';
 import { DataMgr } from '../libs/DataMgr';
-import { DataEvt, EVT } from '../libs/event';
+import { DataEvt, EVT, PlatformEvt } from '../libs/event';
 import { Utils } from '../libs/untils';
+import { PlatMgr } from '../platform/PlatMgr';
 const { ccclass, property } = _decorator;
 
 const AD_POWER = 20 
 const AD_GOLD = 30
+
+const MAX_REWARD_TIMES = 5 //每天最大领奖次数
 
 @ccclass('TipsMgr')
 export class TipsMgr extends Component {
@@ -44,6 +47,7 @@ export class TipsMgr extends Component {
 
         EVT.on(DataEvt.CHANGE_GOLD,this.onGoldChange, this)
         EVT.on(DataEvt.CHANGE_POWER,this.onPowerChange, this)
+        EVT.on(PlatformEvt.SHARE_APP, this.onShareCallBack, this)
 
         this.onGoldChange(DataMgr.ins.gold)
         this.onPowerChange(DataMgr.ins.power)
@@ -73,11 +77,38 @@ export class TipsMgr extends Component {
 
     //看广告得能量
     addADPower() {
-        DataMgr.ins.addPower(AD_POWER)
+        if(PlatMgr.ins.share(DataEvt.CHANGE_POWER)){
+            // DataMgr.ins.addPower(AD_POWER)
+        }else {
+            this.showMessage("该平台暂不支持")
+        }
+
     }
 
     addADGold(){
-        DataMgr.ins.addGold(AD_GOLD)
+        if(PlatMgr.ins.share(DataEvt.CHANGE_GOLD)){
+            // DataMgr.ins.addGold(AD_GOLD)
+        }else {
+            this.showMessage("该平台暂不支持")
+        }
+    }
+
+    onShareCallBack(tp: string){
+        console.log("onShareCallBack", tp, DataMgr.ins.rewardTimes)
+        if(DataMgr.ins.rewardTimes <= MAX_REWARD_TIMES){
+            DataMgr.ins.addRewardTimes()
+        }else {
+            this.showMessage("今日领奖次数已达上限")
+            return
+        }
+        switch(tp){
+            case DataEvt.CHANGE_GOLD:
+                DataMgr.ins.addGold(AD_GOLD)
+                break;
+            case DataEvt.CHANGE_POWER:
+                DataMgr.ins.addPower(AD_POWER)
+                break
+        }
     }
 
     onPowerChange(val: number) {
@@ -87,9 +118,8 @@ export class TipsMgr extends Component {
                 const now = Utils.getUnixTime() 
                 this.addPowerTime = now 
                 DataMgr.ins.lastPowerTime = now 
-
-                this.powerTimeLabel.node.active = true
             }
+            this.powerTimeLabel.node.active = true
         } else {
             this.addPowerTime = 0
             DataMgr.ins.lastPowerTime = 0
