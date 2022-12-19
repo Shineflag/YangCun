@@ -2,6 +2,7 @@ import { _decorator, Component, Node, math, instantiate } from "cc";
 import { AudioManager } from "../AudioManager";
 import { AClip, ItemType, TileAnimTime, TileConfig, TILE_ZONE } from "../libs/constants";
 import { EVT, TILE_EVT } from "../libs/event";
+import { ResMgr } from "../libs/ResMgr";
 import { Tile } from "../libs/Tile";
 import { AreaConfig } from "../libs/yang";
 import { Main } from "../Main";
@@ -179,6 +180,8 @@ export class TileGame extends Component {
         let tile = pf.getComponent(Tile)
         tile.setVal(val)
         tile.setFace(Main.ins.tileSpriteFrames[val])
+        // tile.setFace( ResMgr.ins.getTileSpriteFrame(val))
+       
 
         return tile
     }
@@ -519,9 +522,12 @@ export class TileGame extends Component {
                 let v2 = t2.val
                 t1.setVal(v2)
                 t1.setFace(Main.ins.tileSpriteFrames[v2])
+                // t1.setFace(ResMgr.ins.getTileSpriteFrame(v2))
+                
 
                 t2.setVal(v1)
                 t2.setFace(Main.ins.tileSpriteFrames[v1])
+                // t1.setFace(ResMgr.ins.getTileSpriteFrame(v1))
             }
         }
 

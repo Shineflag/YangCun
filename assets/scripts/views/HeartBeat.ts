@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, tween, Vec3, Tween } from 'cc';
+import { _decorator, Component, Node, tween, Vec3, Tween, math } from 'cc';
 const { ccclass, property } = _decorator;
 
 const HighScale = new Vec3(1,1.2,1)
@@ -23,6 +23,37 @@ function heartBeat(node: Node, tag: number) {
    .start()
 }
 
+function move(node: Node, tag: number){
+    let t = math.randomRangeInt(1,3)
+    let speedx = math.randomRangeInt(-50, 50)
+    let speedy = math.randomRangeInt(-50, 50)
+    let dstx = speedx*t 
+    let dsty = speedy*t 
+    let pos = node.position;
+    if(pos.x + dstx < 0 || pos.x + dstx > 720){
+        dstx = -dstx
+    }
+
+    if(pos.y + dsty < 0 || pos.y + dsty > 1280){
+        dsty = -dsty
+    }
+
+    // if(speedx > 0){
+    //     node.setScale(-1,1)
+    // }else {
+    //     node.setScale(1,1)
+    // }
+    tween(node.position).by(t, new Vec3(dstx, dsty, 0),{
+        onUpdate:(target: Vec3) => {
+            node.position = target
+        }
+    })
+    .call( () => {
+        move(node, tag);
+    })
+    .start()
+}
+
 @ccclass('HeartBeat')
 export class HeartBeat extends Component {
 
@@ -44,6 +75,7 @@ export class HeartBeat extends Component {
        this.tweenTag = Date.now()
        this.root.children.forEach( node => {
            heartBeat(node, this.tweenTag)
+           move(node, this.tweenTag)
        })
    }
 

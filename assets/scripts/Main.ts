@@ -40,7 +40,7 @@ export class Main extends Component {
     start() {
         PlatMgr.ins.init()
         ResMgr.ins.loadLeveConfig()
-        // ResMgr.ins.loadTilesSpriteFrame("yang")
+        // ResMgr.ins.loadTilesSpriteFrame("tang")
     }
 
     update(deltaTime: number) {

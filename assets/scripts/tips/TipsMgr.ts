@@ -9,9 +9,9 @@ import { PlatMgr } from '../platform/PlatMgr';
 const { ccclass, property } = _decorator;
 
 const AD_POWER = 20 
-const AD_GOLD = 30
+const AD_GOLD = 50
 
-const MAX_REWARD_TIMES = 5 //每天最大领奖次数
+const MAX_REWARD_TIMES = 3 //每天最大领奖次数
 
 @ccclass('TipsMgr')
 export class TipsMgr extends Component {
@@ -80,7 +80,8 @@ export class TipsMgr extends Component {
         if(PlatMgr.ins.share(DataEvt.CHANGE_POWER)){
             // DataMgr.ins.addPower(AD_POWER)
         }else {
-            this.showMessage("该平台暂不支持")
+            DataMgr.ins.addPower(AD_POWER)
+            // this.showMessage("该平台暂不支持")
         }
 
     }
@@ -89,7 +90,8 @@ export class TipsMgr extends Component {
         if(PlatMgr.ins.share(DataEvt.CHANGE_GOLD)){
             // DataMgr.ins.addGold(AD_GOLD)
         }else {
-            this.showMessage("该平台暂不支持")
+            DataMgr.ins.addGold(AD_GOLD)
+            // this.showMessage("该平台暂不支持")
         }
     }
 

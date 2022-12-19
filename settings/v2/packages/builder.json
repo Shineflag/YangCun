@@ -8,6 +8,7 @@
     },
     "url": "project://assets/resources/name.png",
     "totalTime": 1000,
-    "displayWatermark": false
+    "displayWatermark": false,
+    "displayRatio": 0.18
   }
 }

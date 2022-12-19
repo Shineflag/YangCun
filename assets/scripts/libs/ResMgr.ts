@@ -15,9 +15,9 @@ export class ResMgr {
 
     private _tiles: Record<string, SpriteFrame[]> = {}
 
-    private _lvConfigs: Record<string, AreaConfig> = {}
+    private _lvConfigs: Map<string, AreaConfig> = new Map<string, AreaConfig>()
 
-
+    private _lvLoadOver: boolean = false
 
     //关卡数据
     public loadLeveConfig() {
@@ -25,14 +25,23 @@ export class ResMgr {
             bundle.loadDir<JsonAsset>('json/levels', (err, res: JsonAsset[]) => {
                 console.log("err", err)
                 res.forEach( item => {
-                    this._lvConfigs[item.name] = item.json as AreaConfig
+                    this._lvConfigs.set(item.name,item.json as AreaConfig)
                 })
+                this._lvLoadOver = true
             } )
         })
     }
 
+    get lvLoadOK(): boolean {
+        return this._lvLoadOver
+    }
+
+    get lvCount(){
+        return this._lvConfigs.size
+    }
+
     public  getLevelConfig(lv: number): AreaConfig{
-        return this._lvConfigs[lv.toString()]
+        return this._lvConfigs.get(lv.toString())
     }
 
 
@@ -44,6 +53,10 @@ export class ResMgr {
             } else {
                 bundle.loadDir(name, SpriteFrame, (err: Error, assets: SpriteFrame[]) => {
                     // this._tiles[name] = assets
+                    if(err != null){
+                        console.error(`load ${name} err:` , err)
+                        return 
+                    }
                     console.log("yang tiles lenght", assets.length)
                     this._tiles[name] = []
                     assets.forEach( sp => {
@@ -54,7 +67,7 @@ export class ResMgr {
         })
     }
 
-    public getTileSpriteFrame(val: number, name: string = "yang"):SpriteFrame{
+    public getTileSpriteFrame(val: number, name: string = "tang"):SpriteFrame{
         if(this._tiles[name]){
             return this._tiles[name][val]
         }

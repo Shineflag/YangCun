@@ -1,6 +1,8 @@
 import { _decorator, Component, Node } from 'cc';
 import { AudioManager } from '../AudioManager';
 import { AClip } from '../libs/constants';
+import { ResMgr } from '../libs/ResMgr';
+import { TipsMgr } from '../tips/TipsMgr';
 import { ViewMgr } from './ViewMgr';
 const { ccclass, property } = _decorator;
 
@@ -34,8 +36,13 @@ export class HomeView extends Component {
     }
 
     onStartBtnClick() {
-        AudioManager.ins.play(AClip.CLICK)
-        ViewMgr.ins.showView("LevelView")
+        if(ResMgr.ins.lvLoadOK){
+            AudioManager.ins.play(AClip.CLICK)
+            ViewMgr.ins.showView("LevelView")
+        } else {
+            TipsMgr.ins.showMessage("资源尚未加载完成,请稍后再试")
+        }
+
     }
 
     onClickSet() {

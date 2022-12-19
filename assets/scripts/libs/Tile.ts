@@ -12,6 +12,9 @@ export class Tile extends Component {
     @property(Sprite)
     face: Sprite
 
+    @property(Node)
+    selected: Node
+
     val: number
 
     x: number
@@ -158,12 +161,14 @@ export class Tile extends Component {
     }
 
     setBaseScale() {
+        this.selected.active = false
         this.node.setScale(this.baseScale, this.baseScale)
 
         this.node.getComponent(UITransform).priority = this.priority
     }
 
     setLargeScale() {
+        this.selected.active = true
         this.node.setScale(this.bigScale, this.bigScale)
         this.node.getComponent(UITransform).priority = 10000 * 1000
     }

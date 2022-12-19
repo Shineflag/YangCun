@@ -1,5 +1,6 @@
 import { DataConfig } from "./constants"
 import { DataEvt, EVT } from "./event"
+import { ResMgr } from "./ResMgr"
 import { StoreMgr } from "./StoreMgr"
 import { ILvPlayInfo, IlvPropInfo, IPlayerInfo } from "./yang"
 
@@ -104,7 +105,7 @@ export class DataMgr {
 
     //总关卡数
     get lvCount(): number {
-        return LV_COUNT
+        return ResMgr.ins.lvCount
     }
 
     getLvPlayInfo(lv: number): ILvPlayInfo{

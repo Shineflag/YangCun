@@ -37,7 +37,7 @@ export enum LvStatus {
 
 //游戏的一些数值配置
 export const enum DataConfig {
-    BASE_GOLD = 30,
+    BASE_GOLD = 50,
     MAX_POWER = 25,
     ADD_POWER_TIME = 120
 }
@@ -64,11 +64,11 @@ export enum ItemType {
 }
 
 export const GOLD_COST =  {
-    [ItemType.REMOVE] : 20,  //移出
+    [ItemType.REMOVE] : 15,  //移出
     [ItemType.UNDO] : 10,      //撤回
-    [ItemType.SHUFFLE] :15, //洗牌
-    [ItemType.ADDSLOT] : 30, //加槽
-    [ItemType.RELIVE] : 30,  //复活
+    [ItemType.SHUFFLE] :5, //洗牌
+    [ItemType.ADDSLOT] : 15, //加槽
+    [ItemType.RELIVE] : 25,  //复活
 }
 
 export const enum POWER_COST {
